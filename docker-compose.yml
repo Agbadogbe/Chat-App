@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web-server:
+    build: ./server
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/app
+    command: bash -c "cd /app && npm install -g nodemon && npm install && nodemon server.js"
+  
+  # mobile-client:
+  #   build: ./mobile
+  #   depends_on:
+  #     - "web-server"
+  #   volumes:
+  #     - ./mobile:/mobile-app
+  
+  web-client:
+    build: ./client
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on: 
+      - "web-server"
+    volumes:
+      - ./client:/app
+    command: bash -c "cd /app && npm install && npm start"
