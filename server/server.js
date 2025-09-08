@@ -106,3 +106,89 @@ io.on('connection', (socket) => {
 httpServer.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestion de la Souris</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .rectangle {
+      width: 400px;
+      height: 300px;
+      background-color: royalblue;
+      border-radius: 15px;
+      margin: 30px auto;
+      transition: background-color 0.4s ease;
+      display: block;
+    }
+
+    .good {
+      background-color: limegreen !important;
+    }
+
+    .important {
+      background-color: firebrick !important;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gestion de la Souris</h1>
+
+  <button id="toggle-rectangle">Cacher / Afficher le rectangle</button>
+
+  <p>✔ Déplacez la souris à l'intérieur du rectangle : il devient <b>rouge</b>.</p>
+  <p>✔ Sortez la souris du rectangle : il redevient <b>bleu</b>.</p>
+  <p>✔ Double-cliquez sur le rectangle : il devient <b>vert</b>.</p>
+  <p>✔ Cliquez sur le bouton ci-dessus pour cacher ou afficher le rectangle.</p>
+
+  <div class="rectangle"></div>
+
+  <script>
+    const btn = document.getElementById("toggle-rectangle");
+    const rect = document.querySelector(".rectangle");
+
+    // Bouton cacher / afficher
+    btn.addEventListener("click", () => {
+      rect.classList.toggle("hidden");
+    });
+
+    // Survol de la souris → rouge
+    rect.addEventListener("mouseenter", () => {
+      rect.classList.add("important");
+    });
+
+    rect.addEventListener("mouseleave", () => {
+      rect.classList.remove("important");
+      rect.classList.remove("good"); // repasse au bleu
+    });
+
+    // Double-clic → vert
+    rect.addEventListener("dblclick", () => {
+      rect.classList.add("good");
+      rect.classList.remove("important");
+    });
+  </script>
+
+</body>
+</html>
