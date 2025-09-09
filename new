@@ -64,3 +64,104 @@
     <script src="app.js" defer></script>
   </body>
 </html>
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0e0f12;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: min(800px, 100%);
+}
+
+.card {
+  background: #1e2026;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+fieldset {
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+label {
+  display: block;
+  margin-top: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 6px;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #6ae3ff;
+  color: #000;
+  font-weight: bold;
+}
+
+button.ghost {
+  background: transparent;
+  border: 1px solid #6ae3ff;
+  color: #6ae3ff;
+}
+
+.errors {
+  color: #ff6b6b;
+  margin-top: 8px;
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px dashed #555;
+  border-radius: 8px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #6ae3ff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.names {
+  text-align: center;
+}
