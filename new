@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jeu des Billes — Étape 1</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="app-header">
+        <h1>Jeu des Billes <span class="badge">Étape&nbsp;1</span></h1>
+        <p class="subtitle">Inscris les deux joueurs (prénom + nom).</p>
+      </header>
+
+      <section id="step1" class="card">
+        <h2>Étape 1 — Inscription des joueurs</h2>
+
+        <form id="players-form" novalidate>
+          <div class="players-grid">
+            <fieldset>
+              <legend>Joueur 1</legend>
+              <label for="p1-first">Prénom</label>
+              <input id="p1-first" name="p1-first" type="text" required placeholder="Ex. Aïcha" />
+              
+              <label for="p1-last">Nom</label>
+              <input id="p1-last" name="p1-last" type="text" required placeholder="Ex. Diop" />
+            </fieldset>
+
+            <fieldset>
+              <legend>Joueur 2</legend>
+              <label for="p2-first">Prénom</label>
+              <input id="p2-first" name="p2-first" type="text" required placeholder="Ex. Karim" />
+              
+              <label for="p2-last">Nom</label>
+              <input id="p2-last" name="p2-last" type="text" required placeholder="Ex. Benali" />
+            </fieldset>
+          </div>
+
+          <div id="form-errors" class="errors"></div>
+
+          <div class="actions">
+            <button type="submit" id="submit-btn" class="primary">Valider les joueurs</button>
+            <button type="button" id="reset-btn" class="ghost" hidden>Modifier</button>
+          </div>
+        </form>
+
+        <div id="preview" class="preview">
+          <div class="avatar" id="avatar1">?</div>
+          <div class="names">
+            <div class="line"><strong id="name1">Joueur 1</strong></div>
+            <div class="line small muted">vs</div>
+            <div class="line"><strong id="name2">Joueur 2</strong></div>
+          </div>
+          <div class="avatar" id="avatar2">?</div>
+        </div>
+
+        <div id="step1-success" class="success card" hidden>
+          <p>✅ Joueurs enregistrés ! <strong id="sum1"></strong> affronte <strong id="sum2"></strong>.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
