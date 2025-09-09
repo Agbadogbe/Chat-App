@@ -165,3 +165,94 @@ button.ghost {
 .names {
   text-align: center;
 }
+
+// État global
+const state = {
+  players: [
+    { first: "", last: "" },
+    { first: "", last: "" }
+  ]
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("players-form");
+  const inputs = {
+    p1First: document.getElementById("p1-first"),
+    p1Last: document.getElementById("p1-last"),
+    p2First: document.getElementById("p2-first"),
+    p2Last: document.getElementById("p2-last"),
+  };
+  const errors = document.getElementById("form-errors");
+  const resetBtn = document.getElementById("reset-btn");
+  const submitBtn = document.getElementById("submit-btn");
+  const successBox = document.getElementById("step1-success");
+  const sum1 = document.getElementById("sum1");
+  const sum2 = document.getElementById("sum2");
+  const name1 = document.getElementById("name1");
+  const name2 = document.getElementById("name2");
+  const avatar1 = document.getElementById("avatar1");
+  const avatar2 = document.getElementById("avatar2");
+
+  const clean = (s) => (s || "").trim();
+  const isNameValid = (s) => /^[a-zA-ZÀ-ÿ’' -]{2,}$/.test(s);
+
+  function fullName(first, last) {
+    return `${first} ${last}`;
+  }
+
+  function initials(first, last) {
+    return (first[0] || "?") + (last[0] || "");
+  }
+
+  function updatePreview() {
+    const f1 = inputs.p1First.value, l1 = inputs.p1Last.value;
+    const f2 = inputs.p2First.value, l2 = inputs.p2Last.value;
+
+    name1.textContent = (isNameValid(f1) && isNameValid(l1)) ? fullName(f1, l1) : "Joueur 1";
+    name2.textContent = (isNameValid(f2) && isNameValid(l2)) ? fullName(f2, l2) : "Joueur 2";
+    avatar1.textContent = initials(f1, l1);
+    avatar2.textContent = initials(f2, l2);
+  }
+
+  form.addEventListener("input", updatePreview);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const f1 = clean(inputs.p1First.value), l1 = clean(inputs.p1Last.value);
+    const f2 = clean(inputs.p2First.value), l2 = clean(inputs.p2Last.value);
+
+    if (!isNameValid(f1) || !isNameValid(l1)) {
+      errors.textContent = "⚠️ Joueur 1 invalide.";
+      return;
+    }
+    if (!isNameValid(f2) || !isNameValid(l2)) {
+      errors.textContent = "⚠️ Joueur 2 invalide.";
+      return;
+    }
+    if (fullName(f1, l1).toLowerCase() === fullName(f2, l2).toLowerCase()) {
+      errors.textContent = "⚠️ Les deux joueurs doivent être différents.";
+      return;
+    }
+
+    // OK
+    errors.textContent = "";
+    state.players[0] = { first: f1, last: l1 };
+    state.players[1] = { first: f2, last: l2 };
+    sum1.textContent = fullName(f1, l1);
+    sum2.textContent = fullName(f2, l2);
+    successBox.hidden = false;
+    submitBtn.hidden = true;
+    resetBtn.hidden = false;
+    for (const el of Object.values(inputs)) el.disabled = true;
+  });
+
+  resetBtn.addEventListener("click", () => {
+    successBox.hidden = true;
+    submitBtn.hidden = false;
+    resetBtn.hidden = true;
+    for (const el of Object.values(inputs)) el.disabled = false;
+  });
+
+  updatePreview();
+});
